@@ -3,6 +3,7 @@ package main
 import (
 	"bwastartup/handler"
 	"bwastartup/user"
+	"fmt"
 	"log"
 
 	// "net/http"
@@ -21,6 +22,20 @@ func main() {
 
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
+
+	input := user.LoginInput{
+		Email:    "paul@yahudmail.com",
+		Password: "foo123",
+	}
+
+	user, err := userService.Login(input)
+	if err != nil {
+		fmt.Println("terjadi kesalahan")
+		fmt.Println(err.Error())
+	}
+
+	fmt.Println(user.Email)
+	fmt.Println(user.Name)
 
 	userHandler := handler.NewUserHandler(userService)
 
