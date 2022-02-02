@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"bwastartup/helper"
-	"bwastartup/user"
-	"fmt"
+	"urunan/helper"
+	"urunan/user"
+	// "fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -59,6 +59,22 @@ func (h *userHandler) Login(c *gin.Context) {
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
 		errors := helper.FormatValidationError(err)
-		fmt.Print(errors)
+		errorMessage := gin.H{"errors": errors}
+
+		response := helper.APIResponse("Login failed", http.StatusUnprocessableEntity, "error", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
 	}
+
+	loggedUser, err := h.userService.Login(input)
+	if err != nil {
+		errorMessage := gin.H{"errors": err.Error()}
+		response := helper.APIResponse("Login failed", http.StatusUnprocessableEntity, "error", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
+	}
+
+	formater := user.FormatUser(loggedUser, "tokettokentokettoken")
+	response := helper.APIResponse("Login success", http.StatusOK, "success", formater)
+	c.JSON(http.StatusOK, response)
 }

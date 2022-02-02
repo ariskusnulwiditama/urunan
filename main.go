@@ -3,7 +3,7 @@ package main
 import (
 	"bwastartup/handler"
 	"bwastartup/user"
-	"fmt"
+	// "fmt"
 	"log"
 
 	// "net/http"
@@ -23,19 +23,7 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
-	input := user.LoginInput{
-		Email:    "paul@yahudmail.com",
-		Password: "foo123",
-	}
-
-	user, err := userService.Login(input)
-	if err != nil {
-		fmt.Println("terjadi kesalahan")
-		fmt.Println(err.Error())
-	}
-
-	fmt.Println(user.Email)
-	fmt.Println(user.Name)
+	
 
 	userHandler := handler.NewUserHandler(userService)
 
@@ -43,6 +31,7 @@ func main() {
 	api := router.Group("/api/v1")
 
 	api.POST("/users", userHandler.RegisterUser)
-
+	api.POST("/session", userHandler.Login)
+		
 	router.Run(":8000")
 }

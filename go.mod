@@ -1,4 +1,4 @@
-module bwastartup
+module urunan
 
 go 1.17
 
