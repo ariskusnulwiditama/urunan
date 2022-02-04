@@ -48,12 +48,6 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 }
 
 func (h *userHandler) Login(c *gin.Context) {
-	// user memasukkan input berupa email dan password
-	// input ditangkap handler
-	// mapping dari input user ke input struct
-	// input struct di passing ke service
-	// di service mencari dengan bantuan repostitory user dengan email
-	// mencocokkan password
 
 	var input user.LoginInput
 	err := c.ShouldBindJSON(&input)
