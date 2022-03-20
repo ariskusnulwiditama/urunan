@@ -1,7 +1,7 @@
 package main
 
 import (
-	
+	"fmt"
 	"urunan/auth"
 	"urunan/handler"
 	"urunan/user"
@@ -26,6 +26,16 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
+	
+	token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxfQ.JnTpSCBf41jzuELlysZx6pJODT5G4gIK4VNBVqyos54")
+	if err != nil {
+		fmt.Println("Error")
+	}
+	if token.Valid {
+		fmt.Println("token valid")
+	}else{
+		fmt.Println("token invalid")
+	}
 
 	userHandler := handler.NewUserHandler(userService, authService)
 
