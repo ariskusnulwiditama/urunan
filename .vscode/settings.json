@@ -1,0 +1,30 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 13306,
+            "askForPassword": true,
+            "driver": "MariaDB",
+            "name": "vault",
+            "username": "root",
+            "database": "bwa-go"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 13306,
+            "askForPassword": true,
+            "driver": "MariaDB",
+            "name": "vault",
+            "database": "bwa-go",
+            "username": "root"
+        }
+    ]
+}
